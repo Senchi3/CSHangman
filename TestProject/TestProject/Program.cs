@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestProject {
+namespace CSHangman {
     class Program {
         static void Main (string[] args) {
 
