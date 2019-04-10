@@ -1,7 +1,7 @@
 ﻿# Projects for Area 51
 Unity Development class.
 
-![](https://area51.pe/logo/logo_transparente_negro.png "Area 51" =600)
+![logo](https://area51.pe/logo/logo_transparente_negro.png =600)
 
 ### CSHangman
 A console hangman game made in Visual Studio and C#. Module 1.
