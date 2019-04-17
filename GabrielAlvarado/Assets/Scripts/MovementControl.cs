@@ -4,36 +4,53 @@ using UnityEngine;
 
 public class MovementControl : MonoBehaviour {
 
-    public float speed = 1;
-    
+    private Rigidbody rb;
+    private bool canJump;
+
+    public float speed = 1f;
+    public float jumpForce = 10f;
+
+
     void Start() {
-        
+        rb = GetComponent<Rigidbody>();
+        canJump = true;
     }
+    
 
     void Update() {
 
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            Vector3 tempVector = Vector3.zero;
-            tempVector.x = speed;
-            transform.position -= tempVector * Time.deltaTime;
+        // Movement condition
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        transform.position += new Vector3(h, 0, v) * speed * Time.deltaTime;
+
+        // Jump condition
+        if (Input.GetKeyDown(KeyCode.Space) && canJump) {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = false;
         }
 
-        if (Input.GetKey(KeyCode.DownArrow)) {
-            Vector3 tempVector = Vector3.zero;
-            tempVector.z = speed;
-            transform.position -= tempVector * Time.deltaTime;
-        }
+    }
 
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            Vector3 tempVector = Vector3.zero;
-            tempVector.x = speed;
-            transform.position += tempVector * Time.deltaTime;
+    
+    // Collisions
+
+    void OnCollisionEnter (Collision collision) {
+        if (collision.gameObject.tag == "Ground") {
+            canJump = true;
         }
-        
-        if (Input.GetKey(KeyCode.UpArrow)) {
-            Vector3 tempVector = Vector3.zero;
-            tempVector.z = speed;
-            transform.position += tempVector * Time.deltaTime;
-        }
+    }
+
+
+    // Triggers
+
+    void OnTriggerEnter(Collider other) {
+        Debug.Log("Trigger enter!");
+        other.GetComponent<ChangeMaterial>().ChangeMaterialToNew();
+    }
+
+    void OnTriggerExit(Collider other) {
+        Debug.Log("Trigger exit!");
+        other.GetComponent<ChangeMaterial>().ChangeMaterialToOld();
     }
 }
