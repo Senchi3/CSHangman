@@ -7,22 +7,25 @@ public class MovementControl : MonoBehaviour {
     private Rigidbody rb;
     private bool canJump;
 
+    public KeyCode positiveButton = KeyCode.UpArrow;
+    public KeyCode negativeButton = KeyCode.DownArrow;
+
     public float speed = 1f;
     public float jumpForce = 10f;
 
 
     void Start() {
         rb = GetComponent<Rigidbody>();
-        canJump = true;
     }
-    
+
 
     void Update() {
 
         // Movement condition
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        transform.position += new Vector3(h, 0, v) * speed * Time.deltaTime;
+        Vector3 horizontal = Vector3.right * GetAxis(KeyCode.RightArrow, KeyCode.LeftArrow);
+        Vector3 vertical = Vector3.forward * GetAxis(KeyCode.UpArrow, KeyCode.DownArrow);
+        
+        transform.Translate((horizontal + vertical).normalized * speed * Time.deltaTime);
 
         // Jump condition
         if (Input.GetKeyDown(KeyCode.Space) && canJump) {
@@ -31,8 +34,22 @@ public class MovementControl : MonoBehaviour {
         }
 
     }
-
     
+    int GetAxis (KeyCode positive, KeyCode negative) {
+
+        int up = 0, down = 0;
+
+        if (Input.GetKey (positive)) {
+            up = 1;
+        }
+
+        if (Input.GetKey(negative)) {
+            down = 1;
+        }
+
+        return up - down;
+    }
+
     // Collisions
 
     void OnCollisionEnter (Collision collision) {
