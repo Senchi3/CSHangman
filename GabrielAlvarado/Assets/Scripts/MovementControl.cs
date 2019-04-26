@@ -3,24 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementControl : MonoBehaviour {
-
-    private Rigidbody rb;
-    private bool canJump;
-
+    
     public KeyCode positiveButton = KeyCode.UpArrow;
     public KeyCode negativeButton = KeyCode.DownArrow;
-
     public float speed = 1f;
     public float jumpForce = 10f;
+    
+    Rigidbody rb;
+    bool canJump;
+    Vector3 originalPos;
 
+    int pointCount = 0;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
+        originalPos = transform.position;
     }
 
 
     void Update() {
 
+        // Run condition
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            speed = speed * 2;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            speed = speed / 2;
+        }
         // Movement condition
         Vector3 horizontal = Vector3.right * GetAxis(KeyCode.RightArrow, KeyCode.LeftArrow);
         Vector3 vertical = Vector3.forward * GetAxis(KeyCode.UpArrow, KeyCode.DownArrow);
@@ -32,7 +41,6 @@ public class MovementControl : MonoBehaviour {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canJump = false;
         }
-
     }
     
     int GetAxis (KeyCode positive, KeyCode negative) {
@@ -42,7 +50,6 @@ public class MovementControl : MonoBehaviour {
         if (Input.GetKey (positive)) {
             up = 1;
         }
-
         if (Input.GetKey(negative)) {
             down = 1;
         }
@@ -62,12 +69,18 @@ public class MovementControl : MonoBehaviour {
     // Triggers
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Trigger enter!");
-        other.GetComponent<ChangeMaterial>().ChangeMaterialToNew();
+        if (other.tag == "Hazard") {
+            Debug.Log("Hit by " + other.name + ".");
+            transform.position = originalPos;
+        } else if (other.tag == "Collectible") {
+            Debug.Log("Collected " + other.name + ".");
+            pointCount++;
+            Destroy(other.gameObject);
+        }
+    }
+    
+    void OnGUI () {
+        GUI.Label(new Rect(10,10, 100, 50), "Points: " + pointCount);
     }
 
-    void OnTriggerExit(Collider other) {
-        Debug.Log("Trigger exit!");
-        other.GetComponent<ChangeMaterial>().ChangeMaterialToOld();
-    }
 }
