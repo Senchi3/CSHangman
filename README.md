@@ -10,7 +10,7 @@ A console hangman game made in Visual Studio and C#. Module 1.
 
 
 ### Unity Project
-TBD
+3D playground with a controllable block, collectibles and hazards.
 
 
 
