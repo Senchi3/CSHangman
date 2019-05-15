@@ -5,32 +5,38 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public float moveSpeed = 15;
-    public Vector2 limits = new Vector2(5, 3.5f);
+    public Vector2 limits = new Vector2 (16, 9);
+    Vector2 shapeLimits { get { return limits - ((colliderSize * transform.localScale)/2); } }
+    Vector2 colliderSize;
 
-    void Update() {
-        // Get current horizontal movement
-        float horDirection = Input.GetAxisRaw("Horizontal");
-        Vector3 horMove = horDirection * Vector3.right;
+    // Start is called before the first frame update
+    void Start () {
+        colliderSize = gameObject.GetComponent<BoxCollider2D> ().size;
+    }
 
-        // Get current vertical movement
-        float verDirection = Input.GetAxisRaw("Vertical");
-        Vector3 verMove = verDirection * Vector3.up;
+    // Update is called once per frame
+    void Update () {
+        //Get Current Horizontal Movement
+        Vector3 horMove = Input.GetAxisRaw ("Horizontal") * Vector3.right;
+        //Get Current Vertical Movement
+        Vector3 verMove = Input.GetAxisRaw ("Vertical") * Vector3.up;
 
         Vector3 temp = transform.position;
-        transform.Translate((horMove + verMove).normalized * moveSpeed * Time.deltaTime);
-
-        temp.x = Mathf.Clamp(transform.position.x, -limits.x, limits.x);
-        temp.y = Mathf.Clamp(transform.position.y, -limits.y, limits.y);
+        transform.Translate ((horMove + verMove).normalized * moveSpeed * Time.deltaTime);
+        temp.x = Mathf.Clamp (transform.position.x, -shapeLimits.x, shapeLimits.x);
+        temp.y = Mathf.Clamp (transform.position.y, -shapeLimits.y, shapeLimits.y);
         transform.position = temp;
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Wow! It works!");
+    void OnTriggerEnter2D (Collider2D other) {
+        Debug.Log ("Colisión");
     }
 
     void OnDrawGizmos () {
-        Gizmos.DrawSphere(transform.position, 0.15f);
+        Gizmos.DrawSphere (transform.position, 0.15f);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(Vector3.zero, limits * 2);
+        Gizmos.DrawWireCube (Vector3.zero, limits * 2);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube (Vector3.zero, shapeLimits * 2);
     }
 }
