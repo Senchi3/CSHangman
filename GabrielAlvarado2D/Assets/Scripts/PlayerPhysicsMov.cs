@@ -9,7 +9,14 @@ public class PlayerPhysicsMov : MonoBehaviour {
     Vector2 colliderSize;
     Rigidbody2D rb2D;
     Vector2 currentMouseWorldPos;
-    public Vector2 mousePlayerDelta { get { return currentMouseWorldPos - rb2D.position; } }
+    public Vector2 current2DPos { get { return transform.position; } }
+    public Vector2 mousePlayerDelta { get {
+            return !rb2D ? Vector2.zero : currentMouseWorldPos - rb2D.position;
+        }
+    }
+
+    public float bulletOriginDist = 1.3f;
+    public GameObject bulletPrefab;
 
     // Start is called before the first frame update
     void Start() {
@@ -17,7 +24,6 @@ public class PlayerPhysicsMov : MonoBehaviour {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
     }
     
-    // Update is called once per frame
     void FixedUpdate() {
         //Get Current Horizontal Movement
         Vector2 horMove = Input.GetAxisRaw("Horizontal") * Vector2.right;
@@ -33,11 +39,17 @@ public class PlayerPhysicsMov : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Colisión");
+        Debug.Log("Colission");
     }
 
     void Update() {
         currentMouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetMouseButtonDown(0)) {
+            Debug.Log("Bang!");
+            GameObject bullet = Instantiate (bulletPrefab, current2DPos + (mousePlayerDelta.normalized * bulletOriginDist), Quaternion.identity);
+            bullet.GetComponent<BulletBehaviour>().direction = mousePlayerDelta.normalized;
+        }
     }
 
     void OnGUI () {
@@ -52,6 +64,6 @@ public class PlayerPhysicsMov : MonoBehaviour {
         Gizmos.DrawWireCube(Vector3.zero, shapeLimits * 2);
         Gizmos.DrawLine(transform.position, currentMouseWorldPos);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(currentMouseWorldPos, 0.5f);
+        Gizmos.DrawSphere(currentMouseWorldPos, 0.25f);
     }
 }
