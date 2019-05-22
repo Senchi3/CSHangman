@@ -16,7 +16,13 @@ public class BulletBehaviour : MonoBehaviour {
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D () {
-        Destroy(gameObject);
+    void OnTriggerEnter2D (Collider2D other) {
+        if (other.CompareTag("Hazard")) {
+            Destroy(other.gameObject);
+        }
+
+        if (!other.CompareTag("CamArea")) {
+            Destroy(gameObject);
+        }
     }
 }

@@ -43,7 +43,20 @@ public class PlayerPhysicsMov : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Colission");
+        if (other.CompareTag("Hazard")) {
+            //TODO: Kill player
+        }
+
+        if (other.CompareTag("CamArea")) {
+            CamArea targetArea = other.GetComponent<CamArea>();
+            Camera.main.GetComponent<CamMovement>().SetTempTarget(targetArea.transform, targetArea.centerSpeed, targetArea.targetSize);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        if (other.CompareTag("CamArea")) {
+            Camera.main.GetComponent<CamMovement>().SetTempTarget();
+        }
     }
 
     void Update() {
