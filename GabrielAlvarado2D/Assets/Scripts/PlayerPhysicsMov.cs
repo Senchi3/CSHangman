@@ -18,6 +18,10 @@ public class PlayerPhysicsMov : MonoBehaviour {
     public float bulletOriginDist = 1.3f;
     public GameObject bulletPrefab;
 
+    public float fireRate = 2;
+    public float cooldownTimer = 0.0f;
+    public bool isOnCooldown = false;
+
     // Start is called before the first frame update
     void Start() {
         colliderSize = gameObject.GetComponent<BoxCollider2D>().size;
@@ -45,11 +49,24 @@ public class PlayerPhysicsMov : MonoBehaviour {
     void Update() {
         currentMouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonDown(0)) {
-            Debug.Log("Bang!");
-            GameObject bullet = Instantiate (bulletPrefab, current2DPos + (mousePlayerDelta.normalized * bulletOriginDist), Quaternion.identity);
-            bullet.GetComponent<BulletBehaviour>().direction = mousePlayerDelta.normalized;
+        if (!isOnCooldown) {
+            if (Input.GetMouseButton(0)) {
+                Shoot();
+                isOnCooldown = true;
+            } 
+        } else {
+            cooldownTimer += Time.deltaTime;
+            if (cooldownTimer >= 1 / fireRate) {
+                cooldownTimer = 0;
+                isOnCooldown = false;
+            }
         }
+    }
+
+    void Shoot () {
+        Debug.Log("Bang!");
+        GameObject bullet = Instantiate(bulletPrefab, current2DPos + (mousePlayerDelta.normalized * bulletOriginDist), Quaternion.identity);
+        bullet.GetComponent<BulletBehaviour>().direction = mousePlayerDelta.normalized;
     }
 
     void OnGUI () {
