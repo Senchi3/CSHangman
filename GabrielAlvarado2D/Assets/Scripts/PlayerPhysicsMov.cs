@@ -44,7 +44,7 @@ public class PlayerPhysicsMov : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Hazard")) {
-            //TODO: Kill player
+            Object.Destroy(this.gameObject);
         }
 
         if (other.CompareTag("CamArea")) {
@@ -77,7 +77,6 @@ public class PlayerPhysicsMov : MonoBehaviour {
     }
 
     void Shoot () {
-        Debug.Log("Bang!");
         GameObject bullet = Instantiate(bulletPrefab, current2DPos + (mousePlayerDelta.normalized * bulletOriginDist), Quaternion.identity);
         bullet.GetComponent<BulletBehaviour>().direction = mousePlayerDelta.normalized;
     }

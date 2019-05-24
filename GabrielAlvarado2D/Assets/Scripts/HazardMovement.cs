@@ -6,7 +6,7 @@ public class HazardMovement : MonoBehaviour {
 
     public float speed = 1;
     public Vector3 point;
-    public Vector3 axis = Vector3.back;
+    Vector3 axis = Vector3.back;
 
     // Start is called before the first frame update
     void Start () {
