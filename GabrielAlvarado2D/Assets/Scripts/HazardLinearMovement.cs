@@ -28,6 +28,10 @@ public class HazardLinearMovement : MonoBehaviour {
         }
     }
 
+    void OnDestroy () {
+        FindObjectOfType<ObjectiveControl>().remainingEnemies--;
+    }
+
     void Reset () {
         pathPoints = new Vector3[1];
         pathPoints[0] = transform.position;

@@ -44,12 +44,16 @@ public class PlayerPhysicsMov : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Hazard")) {
-            Object.Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
 
         if (other.CompareTag("CamArea")) {
             CamArea targetArea = other.GetComponent<CamArea>();
             Camera.main.GetComponent<CamMovement>().SetTempTarget(targetArea.transform, targetArea.centerSpeed, targetArea.targetSize);
+        }
+
+        if (other.CompareTag("Exit")) {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(FindObjectOfType<ObjectiveControl>().nextScene);
         }
     }
 

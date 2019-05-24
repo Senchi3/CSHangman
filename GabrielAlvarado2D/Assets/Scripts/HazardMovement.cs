@@ -19,6 +19,10 @@ public class HazardMovement : MonoBehaviour {
         transform.rotation = Quaternion.identity;
     }
 
+    void OnDestroy() {
+        FindObjectOfType<ObjectiveControl>().remainingEnemies--;
+    }
+
     void OnDrawGizmos () {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere (point, (point - transform.position).magnitude);

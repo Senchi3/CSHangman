@@ -52,10 +52,12 @@ public class CamMovement : MonoBehaviour {
     }
 
     void OnDrawGizmos() {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(cam2DPos, camFollowPoint);
-        Gizmos.DrawWireSphere(cam2DPos, 0.35f);
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(camFollowPoint, 0.35f);
+        if (playerMovement) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(cam2DPos, camFollowPoint);
+            Gizmos.DrawWireSphere(cam2DPos, 0.35f);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(camFollowPoint, 0.35f);
+        }
     }
 }
