@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hazard
   - CamArea
+  - ExitDoor
   layers:
   - Default
   - TransparentFX
