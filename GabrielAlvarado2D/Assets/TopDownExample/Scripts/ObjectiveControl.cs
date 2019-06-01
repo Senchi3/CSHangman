@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectiveControl : MonoBehaviour {
 
     public GameObject targetWall;
-    public int remainingEnemies;
+    public int remainingEnemies = 0;
     public int nextScene;
 
     // Start is called before the first frame update

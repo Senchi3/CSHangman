@@ -26,7 +26,7 @@ public class HazarLinearMovement : MonoBehaviour {
         }
     }
 
-    void OnDestroy () {
+    void OnDestroy() {
         FindObjectOfType<ObjectiveControl>().remainingEnemies--;
     }
 

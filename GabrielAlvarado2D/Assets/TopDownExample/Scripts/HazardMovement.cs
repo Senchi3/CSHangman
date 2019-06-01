@@ -9,28 +9,28 @@ public class HazardMovement : MonoBehaviour {
     public Vector3 axis = Vector3.back;
 
     // Start is called before the first frame update
-    void Start () {
+    void Start() {
 
     }
 
     // Update is called once per frame
-    void Update () {
-        transform.RotateAround (point, axis, speed * Time.deltaTime);
+    void Update() {
+        transform.RotateAround(point, axis, speed * Time.deltaTime);
         transform.rotation = Quaternion.identity;
     }
 
-    void OnDestroy () {
-        FindObjectOfType<ObjectiveControl> ().remainingEnemies--;
+    void OnDestroy() {
+        FindObjectOfType<ObjectiveControl>().remainingEnemies--;
     }
 
-    void OnDrawGizmos () {
+    void OnDrawGizmos() {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere (point, (point - transform.position).magnitude);
+        Gizmos.DrawWireSphere(point, (point - transform.position).magnitude);
         Gizmos.color = Color.red;
-        Gizmos.DrawRay (transform.position, (point - transform.position));
-        Gizmos.DrawSphere (point, 0.25f);
+        Gizmos.DrawRay(transform.position, (point - transform.position));
+        Gizmos.DrawSphere(point, 0.25f);
         Gizmos.color = Color.cyan;
-        Gizmos.DrawRay (transform.position, transform.up);
-        Gizmos.DrawRay (transform.position, transform.right);
+        Gizmos.DrawRay(transform.position, transform.up);
+        Gizmos.DrawRay(transform.position, transform.right);
     }
 }

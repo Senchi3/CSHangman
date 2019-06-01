@@ -44,14 +44,13 @@ public class PlayerPhysicsMov : MonoBehaviour {
     }
     void OnTriggerEnter2D (Collider2D other) {
         if (other.CompareTag("Hazard")) {
-            //TODO: Destroy
+            Destroy(this.gameObject);
         }
         if (other.CompareTag("CamArea")) {
             CamArea targetArea = other.GetComponent<CamArea> ();
             Camera.main.GetComponent<CamMovement> ().SetTempTarget (targetArea.transform, targetArea.centerSpeed, targetArea.targetSize);
         }
         if (other.CompareTag("ExitDoor")) {
-            //TODO: Change Scene
             UnityEngine.SceneManagement.SceneManager.LoadScene (FindObjectOfType<ObjectiveControl> ().nextScene);
         }
     }

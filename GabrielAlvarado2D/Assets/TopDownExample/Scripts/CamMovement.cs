@@ -12,8 +12,7 @@ public class CamMovement : MonoBehaviour {
     Vector2 cam2DPos { get { return transform.position; } }
     Vector2 limits { get { return playerMovement.limits - camUnitDimentions; } }
     Vector2 camFollowPoint { get {
-            return playerMovement.current2DPos + playerMovement.mousePlayerDelta.normalized *
-                Mathf.Clamp (playerMovement.mousePlayerDelta.magnitude, 0, maxTargetDistance);
+                return playerMovement.current2DPos + playerMovement.mousePlayerDelta.normalized * Mathf.Clamp(playerMovement.mousePlayerDelta.magnitude, 0, maxTargetDistance);
         }
     }
 
