@@ -20,6 +20,7 @@ public class HazardMovement : MonoBehaviour {
     }
 
     void OnDestroy() {
+        //TODO: FIX THIS :(
         FindObjectOfType<ObjectiveControl>().remainingEnemies--;
     }
 

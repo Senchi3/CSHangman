@@ -747,9 +747,9 @@ TextureImporter:
       name: Jerom_topRL_CCBYSA3_31
       rect:
         serializedVersion: 2
-        x: 159
+        x: 160
         y: 104
-        width: 17
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -767,9 +767,9 @@ TextureImporter:
       name: Jerom_topRL_CCBYSA3_32
       rect:
         serializedVersion: 2
-        x: 159
+        x: 160
         y: 71
-        width: 17
+        width: 16
         height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -912,7 +912,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

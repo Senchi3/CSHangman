@@ -9,9 +9,10 @@ public class HazarLinearMovement : MonoBehaviour {
     int currentPathIndex = 0;
     public Vector3[] pathPoints;
 
+
     // Start is called before the first frame update
     void Start () {
-        
+        pathPoints[0] = transform.position;
     }
 
     // Update is called once per frame
@@ -27,6 +28,7 @@ public class HazarLinearMovement : MonoBehaviour {
     }
 
     void OnDestroy() {
+        //TODO: FIX THIS :(
         FindObjectOfType<ObjectiveControl>().remainingEnemies--;
     }
 

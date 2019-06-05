@@ -44,7 +44,7 @@ public class PlayerPhysicsMov : MonoBehaviour {
     }
     void OnTriggerEnter2D (Collider2D other) {
         if (other.CompareTag("Hazard")) {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
         if (other.CompareTag("CamArea")) {
             CamArea targetArea = other.GetComponent<CamArea> ();
