@@ -28,8 +28,10 @@ public class HazarLinearMovement : MonoBehaviour {
     }
 
     void OnDestroy() {
-        //TODO: FIX THIS :(
-        FindObjectOfType<ObjectiveControl>().remainingEnemies--;
+        ObjectiveControl objectiveControl;
+        if (objectiveControl = FindObjectOfType<ObjectiveControl>()) {
+            objectiveControl.remainingEnemies--;
+        }
     }
 
     void Reset () {

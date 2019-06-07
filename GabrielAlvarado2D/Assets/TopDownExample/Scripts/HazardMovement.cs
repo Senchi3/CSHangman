@@ -20,8 +20,10 @@ public class HazardMovement : MonoBehaviour {
     }
 
     void OnDestroy() {
-        //TODO: FIX THIS :(
-        FindObjectOfType<ObjectiveControl>().remainingEnemies--;
+        ObjectiveControl objectiveControl;
+        if (objectiveControl = FindObjectOfType<ObjectiveControl>()) {
+            objectiveControl.remainingEnemies--;
+        }
     }
 
     void OnDrawGizmos() {
