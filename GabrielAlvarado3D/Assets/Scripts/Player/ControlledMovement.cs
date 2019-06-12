@@ -10,26 +10,27 @@ public class ControlledMovement : MovScript {
     public float jumpForce = 10;
 
     // Start is called before the first frame update
-    void Start() {
+    void Start () {
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update () {
         if (!characterController.isGrounded) {
             verticalSpeed -= gravity * Time.deltaTime;
         } else {
             verticalSpeed = 0;
-
             if (Input.GetKeyDown(KeyCode.Space)) {
+                Debug.Log (verticalSpeed);
                 verticalSpeed = jumpForce;
+                Debug.Log (verticalSpeed);
             }
         }
-        Vector3 horizontalAxis = Vector3.up * Input.GetAxis("Horizontal");
-        Vector3 forwardAxis = transform.forward * speed * Input.GetAxis("Vertical");
+        Vector3 forwardAxis = transform.forward * speed * Input.GetAxis ("Vertical");
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
+        Vector3 horizontal = Vector3.up * Input.GetAxis ("Horizontal");
 
-        characterController.Move((forwardAxis + verticalAxis) * Time.deltaTime);
-        transform.Rotate(horizontalAxis * angularSpeed * Time.deltaTime);
+        characterController.Move ((forwardAxis + verticalAxis) * Time.deltaTime);
+        transform.Rotate (horizontal * angularSpeed * Time.deltaTime);
     }
 }
