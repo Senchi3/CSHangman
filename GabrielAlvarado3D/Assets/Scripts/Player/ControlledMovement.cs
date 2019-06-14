@@ -9,18 +9,32 @@ public class ControlledMovement : MovScript {
     Animator playerAnimator;
     float verticalSpeed;
     public float jumpForce = 10;
-    bool lastGrounded;
+    bool grounded { get { return groundCount > 0; } }
+    int groundCount { get { return groundCollection.Count;  } }
+    List<Ground> groundCollection = new List<Ground> ();
+    bool persistence;
+
+    class Ground {
+        public Collider collider;
+        public Vector3 contactNormal;
+
+        public Ground(Collider collider, Vector3 contactNormal) {
+            this.collider = collider;
+            this.contactNormal = contactNormal;
+        }
+    }
 
     // Start is called before the first frame update
     void Start () {
         playerAnimator = transform.GetChild(0).GetComponent<Animator>();
+        characterController.detectCollisions = false;
     }
 
     // Update is called once per frame
     void Update () {
-        RaycastHit info;
-        bool grounded = Physics.Raycast(transform.GetChild(0).position, Vector3.down, 0.25f);
-        Debug.Log(grounded);
+        
+        //Physics.Raycast(transform.GetChild(0).position, Vector3.down, 0.25f);
+
         if (!(grounded)) {
             verticalSpeed -= gravity * Time.deltaTime;
         } else {
@@ -28,23 +42,49 @@ public class ControlledMovement : MovScript {
             if (Input.GetKeyDown(KeyCode.Space)) {
                 Debug.Log (verticalSpeed);
                 verticalSpeed = jumpForce;
-                playerAnimator.SetTrigger("Jump");
                 Debug.Log (verticalSpeed);
             }
-            if (lastGrounded != grounded) {
-                playerAnimator.SetTrigger("Land");
-            }
         }
-        lastGrounded = grounded;
         Vector3 forwardAxis = transform.forward * speed * Input.GetAxis ("Vertical");
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
         Vector3 horizontal = Vector3.up * Input.GetAxis ("Horizontal");
+        
+        playerAnimator.SetBool("Grounded", grounded);
 
         characterController.Move ((forwardAxis + verticalAxis) * Time.deltaTime);
         transform.Rotate (horizontal * angularSpeed * Time.deltaTime);
+
+        persistence = groundCount > 0;
+    }
+    
+    void OnCollisionStay(Collision collision) {
+        Debug.Log("Collided with: " + collision.collider.name);
+        Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red);
+        for (int i = 0; i < collision.contactCount; i++) {
+            if (Vector3.Dot(collision.contacts[i].normal, Vector3.up) > 0.8) {
+                if (groundCollection.Find(ground => ground.collider == collision.collider) == null) {
+                    groundCollection.Add(new Ground(collision.collider, collision.contacts[i].normal));
+                }
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision collision) {
+        Ground exitGround = groundCollection.Find(ground => ground.collider == collision.collider);
+        if (exitGround != null) {
+            persistence = Physics.Raycast(transform.GetChild(0).position, -exitGround.contactNormal, 0.25f);
+            groundCollection.Remove(exitGround);
+        }
+        StartCoroutine(RecheckPersistance());
     }
 
     void OnDrawGizmos() {
+        Gizmos.color = Color.blue;
         Gizmos.DrawRay(transform.GetChild(0).position, Vector3.down);
+    }
+
+    IEnumerator RecheckPersistance() {
+        yield return new WaitForSeconds(0.2f);
+        persistence = groundCount > 0;
     }
 }

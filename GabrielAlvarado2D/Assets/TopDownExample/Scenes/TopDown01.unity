@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50aee285a1e1ec4189babad75cb3e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWall: {fileID: 896010709}
+  targetWall: {fileID: 218722057}
   remainingEnemies: 0
   nextScene: 2
 --- !u!4 &1163997787
