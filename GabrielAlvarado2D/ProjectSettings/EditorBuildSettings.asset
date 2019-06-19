@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TopDownExample/Scenes/TopDown02.unity
     guid: 446aca8bf70f922498cd4d1e8d960aac
+  - enabled: 1
+    path: Assets/TopDownExample/Scenes/TopDown03.unity
+    guid: 45d149f0d541f6d45ae9e772291a0117
   m_configObjects: {}

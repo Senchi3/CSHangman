@@ -19,4 +19,8 @@ public class ObjectiveControl : MonoBehaviour {
             Destroy(targetWall);
         }
     }
+
+    void OnGUI() {
+        GUI.Label(new Rect(10, 10, 120, 50), "Remaining enemies: " + remainingEnemies);
+    }
 }

@@ -42,9 +42,10 @@ public class PlayerPhysicsMov : MonoBehaviour {
             rb2D.MovePosition (movement);
         }
     }
+
     void OnTriggerEnter2D (Collider2D other) {
         if (other.CompareTag("Hazard")) {
-            gameObject.SetActive(false);
+            FindObjectOfType<ObjectiveControl>().StartCoroutine(KillPlayer());
         }
         if (other.CompareTag("CamArea")) {
             CamArea targetArea = other.GetComponent<CamArea> ();
@@ -54,6 +55,7 @@ public class PlayerPhysicsMov : MonoBehaviour {
             UnityEngine.SceneManagement.SceneManager.LoadScene (FindObjectOfType<ObjectiveControl> ().nextScene);
         }
     }
+
     void OnTriggerExit2D (Collider2D other) {
         if (other.CompareTag ("CamArea")) {
             Camera.main.GetComponent<CamMovement> ().SetTempTarget ();
@@ -84,10 +86,6 @@ public class PlayerPhysicsMov : MonoBehaviour {
         bullet.GetComponent<BulletBehaviour> ().direction = mousePlayerDelta.normalized;
     }
 
-    void OnGUI () {
-        GUI.Label (new Rect (10, 10, 120, 50), "MousePos: " + currentMouseWorldPos);
-    }
-
     void OnDrawGizmos () {
         Gizmos.DrawSphere (transform.position, 0.15f);
         Gizmos.color = Color.red;
@@ -96,5 +94,11 @@ public class PlayerPhysicsMov : MonoBehaviour {
         Gizmos.DrawWireCube (Vector3.zero, shapeLimits * 2);
         Gizmos.DrawLine (transform.position, currentMouseWorldPos);
         Gizmos.DrawSphere (currentMouseWorldPos, 0.25f);
+    }
+
+    IEnumerator KillPlayer() {
+        gameObject.SetActive(false);
+        yield return new WaitForSeconds(2);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

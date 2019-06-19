@@ -9,8 +9,8 @@ public class ControlledMovement : MovScript {
     Animator playerAnimator;
     float verticalSpeed;
     public float jumpForce = 10;
-    bool grounded { get { return groundCount > 0; } }
-    int groundCount { get { return groundCollection.Count;  } }
+    bool grounded { get { return groundCount > 0 || persistence; } }
+    int groundCount { get { return groundCollection.Count; } }
     List<Ground> groundCollection = new List<Ground> ();
     bool persistence;
 
@@ -26,20 +26,19 @@ public class ControlledMovement : MovScript {
 
     // Start is called before the first frame update
     void Start () {
-        playerAnimator = transform.GetChild(0).GetComponent<Animator>();
+        playerAnimator = transform.GetChild (0).GetComponent<Animator> ();
         characterController.detectCollisions = false;
     }
 
     // Update is called once per frame
     void Update () {
-        
-        //Physics.Raycast(transform.GetChild(0).position, Vector3.down, 0.25f);
-
-        if (!(grounded)) {
+        //bool grounded = Physics.Raycast(transform.GetChild (0).position, Vector3.down, 0.15f);
+        if (!grounded) {
             verticalSpeed -= gravity * Time.deltaTime;
         } else {
-            verticalSpeed = 0;
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            verticalSpeed = persistence ? verticalSpeed - (gravity * Time.deltaTime) : 0;
+
+            if (Input.GetKeyDown (KeyCode.Space)) {
                 Debug.Log (verticalSpeed);
                 verticalSpeed = jumpForce;
                 Debug.Log (verticalSpeed);
@@ -48,43 +47,43 @@ public class ControlledMovement : MovScript {
         Vector3 forwardAxis = transform.forward * speed * Input.GetAxis ("Vertical");
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
         Vector3 horizontal = Vector3.up * Input.GetAxis ("Horizontal");
-        
-        playerAnimator.SetBool("Grounded", grounded);
+
+        playerAnimator.SetBool ("Grounded", grounded);
 
         characterController.Move ((forwardAxis + verticalAxis) * Time.deltaTime);
         transform.Rotate (horizontal * angularSpeed * Time.deltaTime);
-
-        persistence = groundCount > 0;
     }
-    
-    void OnCollisionStay(Collision collision) {
-        Debug.Log("Collided with: " + collision.collider.name);
-        Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red);
+
+    void OnCollisionStay (Collision collision) {
+        Debug.Log ("Collided " + collision.collider.name + " " + groundCount + "/" + persistence);
+        Debug.DrawRay (collision.contacts[0].point, collision.contacts[0].normal, Color.red);
+
         for (int i = 0; i < collision.contactCount; i++) {
-            if (Vector3.Dot(collision.contacts[i].normal, Vector3.up) > 0.8) {
+            if (Vector3.Dot (collision.contacts[i].normal, Vector3.up) > 0.8) {
                 if (groundCollection.Find(ground => ground.collider == collision.collider) == null) {
-                    groundCollection.Add(new Ground(collision.collider, collision.contacts[i].normal));
+                    groundCollection.Add (new Ground(collision.collider, collision.contacts[i].normal));
                 }
             }
         }
     }
 
-    void OnCollisionExit(Collision collision) {
-        Ground exitGround = groundCollection.Find(ground => ground.collider == collision.collider);
+    void OnCollisionExit (Collision collision) {
+        Ground exitGround = groundCollection.Find (ground => ground.collider == collision.collider);
         if (exitGround != null) {
-            persistence = Physics.Raycast(transform.GetChild(0).position, -exitGround.contactNormal, 0.25f);
-            groundCollection.Remove(exitGround);
+            persistence = Vector3.Dot (exitGround.contactNormal, Vector3.up) < 1 && verticalSpeed <= 0;
+            groundCollection.Remove (exitGround);
+            StartCoroutine (RecheckPersistance ());
         }
-        StartCoroutine(RecheckPersistance());
+        Debug.Log (persistence);
     }
 
-    void OnDrawGizmos() {
+    void OnDrawGizmos () {
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.GetChild(0).position, Vector3.down);
+        Gizmos.DrawRay (transform.GetChild (0).position, Vector3.down * 0.15f);
     }
 
-    IEnumerator RecheckPersistance() {
-        yield return new WaitForSeconds(0.2f);
-        persistence = groundCount > 0;
+    IEnumerator RecheckPersistance () {
+        yield return new WaitForSeconds (0.25f);
+        persistence = false;
     }
 }

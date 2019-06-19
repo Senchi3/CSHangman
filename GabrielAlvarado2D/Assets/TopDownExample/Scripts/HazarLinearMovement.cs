@@ -5,6 +5,7 @@ using UnityEngine;
 public class HazarLinearMovement : MonoBehaviour {
 
     public float speed = 1;
+    public bool loops;
     int direction = 1;
     int currentPathIndex = 0;
     public Vector3[] pathPoints;
@@ -21,8 +22,12 @@ public class HazarLinearMovement : MonoBehaviour {
         if (transform.position == pathPoints[currentPathIndex]) {
             currentPathIndex += direction;
             if (currentPathIndex >= pathPoints.Length || currentPathIndex < 0) {
-                direction *= -1;
-                currentPathIndex += direction;
+                if (loops) {
+                    currentPathIndex = 0;
+                } else {
+                    direction *= -1;
+                    currentPathIndex += direction;
+                }
             } 
         }
     }
