@@ -15,9 +15,7 @@ A console hangman game made in Visual Studio and C#. Module 1.
 
 
 ### Unity Project 2D
-Two projects in one:
-1) Topdown 2D shooter with pixelart tiles.
-2) Platformer proof of concept.
+A topdown 2D shooter with pixelart tiles from [Jerom on opengameart.org](https://opengameart.org/content/top-sci-fi-cga-tileset "Jerom on opengameart.org").
 
 
 
