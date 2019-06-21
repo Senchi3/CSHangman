@@ -17,7 +17,7 @@ public class ControlledMovement : MovScript {
     class Ground {
         public Collider collider;
         public Vector3 contactNormal;
-
+        
         public Ground(Collider collider, Vector3 contactNormal) {
             this.collider = collider;
             this.contactNormal = contactNormal;
@@ -32,19 +32,18 @@ public class ControlledMovement : MovScript {
 
     // Update is called once per frame
     void Update() {
-        //bool grounded = Physics.Raycast(transform.GetChild (0).position, Vector3.down, 0.15f);
         if (!grounded) {
             verticalSpeed -= gravity * Time.deltaTime;
         } else {
             verticalSpeed = persistence ? verticalSpeed - (gravity * Time.deltaTime) : 0;
 
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (activeControl && Input.GetKeyDown(KeyCode.Space)) {
                 Debug.Log(verticalSpeed);
                 verticalSpeed = jumpForce;
                 Debug.Log(verticalSpeed);
             }
         }
-        float forward = Input.GetAxis("Vertical");
+        float forward = activeControl ? Input.GetAxis("Vertical") : 0;
 
         playerAnimator.SetFloat("ForwardAxis", forward);
         Vector3 forwardAxis = transform.forward * speed * forward;
