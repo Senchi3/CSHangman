@@ -11,7 +11,11 @@ public class MenuController : MonoBehaviour {
     public void MoveToLevel (int index) {
         SceneManager.LoadScene(index);
     }
-    
+
+    public void EndGame() {
+        Application.Quit();
+    }
+
     void OnDrawGizmos() {
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Vector3.up * -testLength, Vector3.up * testLength);

@@ -10,6 +10,7 @@ public class ObjectiveControl : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        nextScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1;
         remainingEnemies = GameObject.FindGameObjectsWithTag("Hazard").Length;
     }
 
@@ -18,6 +19,10 @@ public class ObjectiveControl : MonoBehaviour {
         if (remainingEnemies <= 0 && targetWall) {
             Destroy(targetWall);
         }
+    }
+
+    public void EndGame() {
+        Application.Quit();
     }
 
     void OnGUI() {
