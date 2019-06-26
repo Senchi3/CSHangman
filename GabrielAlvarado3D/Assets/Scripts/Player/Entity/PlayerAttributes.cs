@@ -8,8 +8,9 @@ public class PlayerAttributes : MonoBehaviour {
     
     public void Initialize() {
         itemCount = SceneControl.persistentPlayerData.itemCount;
-        transform.position = SceneControl.persistentPlayerData.position;
-        transform.rotation = SceneControl.persistentPlayerData.rotation;
+        transform.position = SceneControl.persistentPlayerData.pointData.position;
+        transform.rotation = SceneControl.persistentPlayerData.pointData.rotation;
+        GetComponent<ControlledMovement>().characterController.enabled = true;
     }
 
     // Update is called once per frame
@@ -21,7 +22,9 @@ public class PlayerAttributes : MonoBehaviour {
         if (other.CompareTag("Item")) {
             itemCount++;
         } else if (other.CompareTag("Checkpoint")) {
-            SceneControl.persistentPlayerData.SetData(itemCount, other.transform.position + Vector3.up, other.transform.rotation);
+            Checkpoint checkpoint = other.GetComponent<Checkpoint>();
+            SceneControl.persistentPlayerData.SetAllData(itemCount, checkpoint.pointData);
+            FindObjectOfType<CheckpointControl>().SetCurrentActive(checkpoint);
         }
     }
 }

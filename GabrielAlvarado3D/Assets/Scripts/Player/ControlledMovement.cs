@@ -38,9 +38,9 @@ public class ControlledMovement : MovScript {
             verticalSpeed = persistence ? verticalSpeed - (gravity * Time.deltaTime) : 0;
 
             if (activeControl && Input.GetKeyDown(KeyCode.Space)) {
-                Debug.Log(verticalSpeed);
+                //Debug.Log(verticalSpeed);
                 verticalSpeed = jumpForce;
-                Debug.Log(verticalSpeed);
+                //Debug.Log(verticalSpeed);
             }
         }
         float forward = activeControl ? Input.GetAxis("Vertical") : 0;
@@ -57,7 +57,7 @@ public class ControlledMovement : MovScript {
     }
 
     void OnCollisionStay(Collision collision) {
-        Debug.Log("Collided " + collision.collider.name + " " + groundCount + "/" + persistence);
+        // Debug.Log("Collided " + collision.collider.name + " " + groundCount + "/" + persistence);
         Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.red);
 
         for (int i = 0; i < collision.contactCount; i++) {
@@ -76,7 +76,7 @@ public class ControlledMovement : MovScript {
             groundCollection.Remove(exitGround);
             StartCoroutine(RecheckPersistance());
         }
-        Debug.Log(persistence);
+        // Debug.Log(persistence);
     }
 
     void OnDrawGizmos() {

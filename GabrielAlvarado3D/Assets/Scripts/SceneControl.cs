@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScenePlayerData {
-    public int itemCount { get; private set; }
+public struct PointData {
     public Vector3 position { get; private set; }
     public Quaternion rotation { get; private set; }
 
-    public void SetData (int itemCount, Vector3 position, Quaternion rotation) {
-        this.itemCount = itemCount;
+    public PointData(Vector3 position, Quaternion rotation) {
         this.position = position;
         this.rotation = rotation;
+    }
+}
+
+public class ScenePlayerData {
+    public int itemCount { get; private set; }
+    public PointData pointData;
+
+    public void SetAllData(int itemCount, PointData pointData) {
+        this.itemCount = itemCount;
+        this.pointData = pointData;
+    }
+
+    public void SetAllData(int itemCount, Vector3 position, Quaternion rotation) {
+        this.itemCount = itemCount;
+        this.pointData = new PointData (position, rotation);
     }
 }
 
@@ -26,7 +39,7 @@ public class SceneControl : MonoBehaviour {
     void Start() {
         if (persistentPlayerData == null) {
             persistentPlayerData = new ScenePlayerData();
-            persistentPlayerData.SetData(0, startPoint, Quaternion.identity);
+            persistentPlayerData.SetAllData(0, startPoint, Quaternion.identity);
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovScript>();
         player.activeControl = true;
