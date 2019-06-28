@@ -39,7 +39,7 @@ public class SceneControl : MonoBehaviour {
     void Start() {
         if (persistentPlayerData == null) {
             persistentPlayerData = new ScenePlayerData();
-            persistentPlayerData.SetAllData(0, startPoint, Quaternion.identity);
+            persistentPlayerData.SetAllData(0, startPoint, Quaternion.Euler(0, 180, 0));
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovScript>();
         player.activeControl = true;
