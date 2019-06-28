@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour {
     
     public int itemCount { get; private set; }
+    public Activator targetActivator;
     
     public void Initialize() {
         itemCount = SceneControl.persistentPlayerData.itemCount;

@@ -6,6 +6,7 @@ public class ControlledMovement : MovScript {
 
     public float gravity;
     public CharacterController characterController;
+    public PlayerAttributes playerAttributes;
     Animator playerAnimator;
     float verticalSpeed;
     public float jumpForce = 10;
@@ -37,12 +38,15 @@ public class ControlledMovement : MovScript {
         } else {
             verticalSpeed = persistence ? verticalSpeed - (gravity * Time.deltaTime) : 0;
 
-            if (activeControl && Input.GetKeyDown(KeyCode.Space)) {
-                //Debug.Log(verticalSpeed);
-                verticalSpeed = jumpForce;
-                //Debug.Log(verticalSpeed);
+            if (activeControl) {
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    verticalSpeed = jumpForce;
+                } else if (Input.GetKeyDown(KeyCode.E) && playerAttributes.targetActivator) {
+                    playerAttributes.targetActivator.Activate();
+                }
             }
         }
+
         float forward = activeControl ? Input.GetAxis("Vertical") : 0;
 
         playerAnimator.SetFloat("ForwardAxis", forward);
