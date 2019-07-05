@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using GameUtilities;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
 public struct PointData {
     public Vector3 position { get; private set; }
     public Quaternion rotation { get; private set; }
@@ -13,6 +15,7 @@ public struct PointData {
     }
 }
 
+[System.Serializable]
 public class ScenePlayerData {
     public int itemCount { get; private set; }
     public PointData pointData;
@@ -38,19 +41,20 @@ public class SceneControl : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         if (persistentPlayerData == null) {
-            persistentPlayerData = new ScenePlayerData();
-            persistentPlayerData.SetAllData(0, startPoint, Quaternion.Euler(0, 180, 0));
+            object readData = DataManagement.ReadDataFromFile();
+            if (readData != null) {
+                persistentPlayerData = (ScenePlayerData) readData;
+            } else {
+                persistentPlayerData = new ScenePlayerData();
+                persistentPlayerData.SetAllData(0, startPoint, Quaternion.Euler(0, 180, 0));
+                DataManagement.WriteDataToFile(persistentPlayerData);
+            }
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovScript>();
         player.activeControl = true;
         panel = TransitionPanel.instance;
         panel.Initialize();
         player.GetComponent<PlayerAttributes>().Initialize();
-    }
-
-    // Update is called once per frame
-    void Update() {
-
     }
 
     void OnGUI() {
