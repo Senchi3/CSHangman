@@ -10,8 +10,8 @@ public class PlayerAttributes : MonoBehaviour {
     
     public void Initialize() {
         itemCount = SceneControl.persistentPlayerData.itemCount;
-        transform.position = SceneControl.persistentPlayerData.pointData.position;
-        transform.rotation = SceneControl.persistentPlayerData.pointData.rotation;
+        transform.position = SceneControl.persistentPlayerData.pointData.position.ToVector3();
+        transform.rotation = SceneControl.persistentPlayerData.pointData.rotation.ToQuaternion();
         GetComponent<ControlledMovement>().characterController.enabled = true;
     }
 

@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public struct PointData {
-    public Vector3 position { get; private set; }
-    public Quaternion rotation { get; private set; }
+    public float[] position { get; private set; }
+    public float[] rotation { get; private set; }
 
-    public PointData(Vector3 position, Quaternion rotation) {
+    public PointData(float[] position, float[] rotation) {
         this.position = position;
         this.rotation = rotation;
     }
@@ -25,7 +25,7 @@ public class ScenePlayerData {
         this.pointData = pointData;
     }
 
-    public void SetAllData(int itemCount, Vector3 position, Quaternion rotation) {
+    public void SetAllData(int itemCount, float[] position, float[] rotation) {
         this.itemCount = itemCount;
         this.pointData = new PointData (position, rotation);
     }
@@ -46,7 +46,7 @@ public class SceneControl : MonoBehaviour {
                 persistentPlayerData = (ScenePlayerData) readData;
             } else {
                 persistentPlayerData = new ScenePlayerData();
-                persistentPlayerData.SetAllData(0, startPoint, Quaternion.Euler(0, 180, 0));
+                persistentPlayerData.SetAllData(0, startPoint.UnityToFloatArray(), Quaternion.Euler(0, 180, 0).UnityToFloatArray());
                 DataManagement.WriteDataToFile(persistentPlayerData);
             }
         }
