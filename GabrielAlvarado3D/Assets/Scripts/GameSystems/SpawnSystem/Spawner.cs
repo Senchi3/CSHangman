@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour {
-    
+
+    public TextAsset spawnData;
     Queue<string> spawnQueue;
     int activeEntityLimit;
     public float spawnDelay;
