@@ -7,6 +7,7 @@ public class ControlledMovement : MovScript {
     public float gravity;
     public CharacterController characterController;
     public PlayerAttributes playerAttributes;
+    public GameObject camera;
     Animator playerAnimator;
     float verticalSpeed;
     public float jumpForce = 10;
@@ -55,12 +56,16 @@ public class ControlledMovement : MovScript {
         Vector3 forwardAxis = transform.forward * speed * forward;
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
         Vector3 horizontal = Vector3.up * Input.GetAxis("Horizontal");
+        Vector3 mouse = Vector3.right * Input.GetAxis("Mouse Y");
 
         playerAnimator.SetBool("Grounded", grounded);
         Vector3 movement = (forwardAxis + verticalAxis) * Time.deltaTime;
         if(currentPlatform) { movement += currentPlatform.lastMovement; }
         characterController.Move(movement);
         transform.Rotate(horizontal * angularSpeed * Time.deltaTime);
+
+        //TODO: Mouse camera rotation
+        //camera.gameObject.transform.Rotate(mouse * 100 * angularSpeed * Time.deltaTime);
     }
 
     void OnCollisionStay(Collision collision) {

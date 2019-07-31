@@ -21,7 +21,9 @@ public class MovingPlatform : Activable {
             transform.position = Vector3.MoveTowards(transform.position, movePoints[targetPoint], 2 * Time.deltaTime);
             lastMovement = transform.position - lastPosition;
             if (transform.position == movePoints[targetPoint]) {
-                if ((targetPoint == movePoints.Count - 1) || targetPoint == 0 && direction < 0) { direction *= -1; }
+                if ((targetPoint == movePoints.Count - 1) || targetPoint == 0 && direction < 0) {
+                    direction *= -1;
+                }
                 targetPoint += direction;
             }
         }

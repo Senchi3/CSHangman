@@ -57,10 +57,6 @@ public class SceneControl : MonoBehaviour {
         player.GetComponent<PlayerAttributes>().Initialize();
     }
 
-    void OnGUI() {
-        GUI.Label(new Rect(10, 10, 120, 30), "Items collected: " + player.GetComponent<PlayerAttributes>().itemCount );
-    }
-
     public void LoadScene(int index) {
         if (index < SceneManager.sceneCount && index >= 0) {
             SceneManager.LoadScene(index);
