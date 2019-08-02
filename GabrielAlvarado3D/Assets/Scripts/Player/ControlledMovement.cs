@@ -7,7 +7,7 @@ public class ControlledMovement : MovScript {
     public float gravity;
     public CharacterController characterController;
     public PlayerAttributes playerAttributes;
-    public GameObject camera;
+    public CamScript camera;
     Animator playerAnimator;
     float verticalSpeed;
     public float jumpForce = 10;
@@ -15,6 +15,10 @@ public class ControlledMovement : MovScript {
     int groundCount { get { return groundCollection.Count; } }
     List<Ground> groundCollection = new List<Ground>();
     bool persistence;
+
+    public float mouseMovementMin;
+    public float mouseMovementMax;
+    public float mouseMovementSpeed;
 
     MovingPlatform currentPlatform;
 
@@ -56,7 +60,6 @@ public class ControlledMovement : MovScript {
         Vector3 forwardAxis = transform.forward * speed * forward;
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
         Vector3 horizontal = Vector3.up * Input.GetAxis("Horizontal");
-        Vector3 mouse = Vector3.right * Input.GetAxis("Mouse Y");
 
         playerAnimator.SetBool("Grounded", grounded);
         Vector3 movement = (forwardAxis + verticalAxis) * Time.deltaTime;
@@ -65,7 +68,8 @@ public class ControlledMovement : MovScript {
         transform.Rotate(horizontal * angularSpeed * Time.deltaTime);
 
         //TODO: Mouse camera rotation
-        //camera.gameObject.transform.Rotate(mouse * 100 * angularSpeed * Time.deltaTime);
+        camera.yPosition += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseMovementSpeed;
+        camera.yPosition = Mathf.Clamp(camera.yPosition, mouseMovementMin, mouseMovementMax);
     }
 
     void OnCollisionStay(Collision collision) {
