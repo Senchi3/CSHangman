@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovScript : MonoBehaviour {
 
     public float speed = 5;
-    public float angularSpeed = 80;
+    public float angularSpeed = 120;
     public Vector3 position { get { return transform.position; } }
     public bool activeControl;
 

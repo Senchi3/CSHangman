@@ -55,17 +55,20 @@ public class ControlledMovement : MovScript {
         }
 
         float forward = activeControl ? Input.GetAxis("Vertical") : 0;
+        float right = activeControl ? Input.GetAxis("Horizontal") * 0.8f : 0;
 
         playerAnimator.SetFloat("ForwardAxis", forward);
         Vector3 forwardAxis = transform.forward * speed * forward;
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
-        Vector3 horizontal = Vector3.up * Input.GetAxis("Horizontal");
+        Vector3 horizontalAxis = transform.right * speed * right;
+
+        Vector3 horizontalRotation = Vector3.up * Input.GetAxis("Mouse X");
 
         playerAnimator.SetBool("Grounded", grounded);
-        Vector3 movement = (forwardAxis + verticalAxis) * Time.deltaTime;
+        Vector3 movement = (forwardAxis + verticalAxis + horizontalAxis) * Time.deltaTime;
         if(currentPlatform) { movement += currentPlatform.lastMovement; }
         characterController.Move(movement);
-        transform.Rotate(horizontal * angularSpeed * Time.deltaTime);
+        transform.Rotate(horizontalRotation * angularSpeed * Time.deltaTime);
 
         //TODO: Mouse camera rotation
         camera.yPosition += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseMovementSpeed;
