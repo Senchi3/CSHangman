@@ -57,7 +57,17 @@ public class ControlledMovement : MovScript {
         float forward = activeControl ? Input.GetAxis("Vertical") : 0;
         float right = activeControl ? Input.GetAxis("Horizontal") * 0.8f : 0;
 
-        playerAnimator.SetFloat("ForwardAxis", forward);
+        float movementAnimationFloat = 0;
+
+        if (forward >= 0) {
+            movementAnimationFloat = forward + Mathf.Abs(right);
+        } else if (forward < 0) {
+            movementAnimationFloat = forward - Mathf.Abs(right);
+        }
+
+        movementAnimationFloat = Mathf.Clamp(movementAnimationFloat, -1, 1);
+
+        playerAnimator.SetFloat("ForwardAxis", movementAnimationFloat);
         Vector3 forwardAxis = transform.forward * speed * forward;
         Vector3 verticalAxis = Vector3.up * verticalSpeed;
         Vector3 horizontalAxis = transform.right * speed * right;
