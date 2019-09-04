@@ -5,20 +5,17 @@ using UnityEngine;
 public class MovingPlatform : Activable {
 
     public List<Vector3> movePoints;
-    int targetPoint;
-    int direction = 1;
-    public Vector3 lastMovement { get; private set; }
-
-    // Start is called before the first frame update
-    void Start() {
-
-    }
+    public int targetPoint;
+    public int direction = 1;
+    public int speed = 2;
+    public bool loops = false;
+    public Vector3 lastMovement { get; set; }
 
     // Update is called once per frame
     void Update() {
         if (currentlyActive && movePoints.Count > 1) {
             Vector3 lastPosition = transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, movePoints[targetPoint], 2 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, movePoints[targetPoint], speed * Time.deltaTime);
             lastMovement = transform.position - lastPosition;
             if (transform.position == movePoints[targetPoint]) {
                 if ((targetPoint == movePoints.Count - 1) || targetPoint == 0 && direction < 0) {

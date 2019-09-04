@@ -63,6 +63,10 @@ public class SceneControl : MonoBehaviour {
         }
     }
 
+    public void ExitGame() {
+        Application.Quit();
+    }
+
     void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
             player.activeControl = false;
