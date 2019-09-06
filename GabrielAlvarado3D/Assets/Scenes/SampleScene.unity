@@ -2865,7 +2865,7 @@ PrefabInstance:
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
@@ -2900,17 +2900,17 @@ PrefabInstance:
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.data[2].x
-      value: 122
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.data[2].y
-      value: 24
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.data[2].z
-      value: -136
+      value: -146
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}

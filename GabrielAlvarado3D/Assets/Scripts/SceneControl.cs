@@ -58,7 +58,8 @@ public class SceneControl : MonoBehaviour {
     }
 
     public void LoadScene(int index) {
-        if (index < SceneManager.sceneCount && index >= 0) {
+        Debug.Log(index + " // " + SceneManager.sceneCount + " // " + SceneManager.sceneCountInBuildSettings);
+        if (index < SceneManager.sceneCountInBuildSettings && index >= 0) {
             SceneManager.LoadScene(index);
         }
     }
