@@ -2865,7 +2865,7 @@ PrefabInstance:
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
@@ -2920,22 +2920,52 @@ PrefabInstance:
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.data[3].y
-      value: 24
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: movePoints.Array.data[3].z
-      value: -136
+      value: -146
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: speed
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
         type: 3}
       propertyPath: loops
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
+        type: 3}
+      propertyPath: movePoints.Array.data[4].x
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
+        type: 3}
+      propertyPath: movePoints.Array.data[4].y
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
+        type: 3}
+      propertyPath: movePoints.Array.data[4].z
+      value: -146
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
+        type: 3}
+      propertyPath: movePoints.Array.data[5].x
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
+        type: 3}
+      propertyPath: movePoints.Array.data[5].y
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439309310620836026, guid: 248318a414f38014b9556b9569d121f4,
+        type: 3}
+      propertyPath: movePoints.Array.data[5].z
+      value: -146
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 248318a414f38014b9556b9569d121f4, type: 3}
@@ -3035,7 +3065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingTarget: {fileID: 2034677877}
-  distanceFromTarget: {x: 0, y: 1.5, z: -2.5}
+  distanceFromTarget: {x: 0, y: 3, z: -5}
   yPosition: 0
 --- !u!1 &953909899
 GameObject:
@@ -5882,7 +5912,12 @@ PrefabInstance:
     - target: {fileID: 1684117814471507256, guid: 12f4b0db52b93414482337cb60eef474,
         type: 3}
       propertyPath: m_Name
-      value: Checkpoint (3)
+      value: End Point
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684117814471507256, guid: 12f4b0db52b93414482337cb60eef474,
+        type: 3}
+      propertyPath: m_TagString
+      value: End Point
       objectReference: {fileID: 0}
     - target: {fileID: 22071241823208733, guid: 12f4b0db52b93414482337cb60eef474,
         type: 3}
@@ -5971,6 +6006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f187226cf95ce9f4f822060b25ba6d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneControl: {fileID: 729116597}
 --- !u!1001 &1834540990
 PrefabInstance:
   m_ObjectHideFlags: 0

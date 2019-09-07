@@ -26,6 +26,8 @@ public class PlayerAttributes : MonoBehaviour {
             SceneControl.persistentPlayerData.SetAllData(itemCount, checkpoint.pointData);
             DataManagement.WriteDataToFile(SceneControl.persistentPlayerData);
             FindObjectOfType<CheckpointControl>().SetCurrentActive(checkpoint);
+        } else if (other.CompareTag("End Point")) {
+            int xd = 0;
         }
     }
 }

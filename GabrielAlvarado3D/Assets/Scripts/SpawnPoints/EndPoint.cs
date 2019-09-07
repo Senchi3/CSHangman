@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EndPoint : MonoBehaviour {
-    SceneControl sceneControl;
+    public SceneControl sceneControl;
 
     void OnTriggerEnter(Collider other) {
         sceneControl.LoadScene(2);
