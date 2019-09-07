@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SimpleSceneControl : MonoBehaviour {
+    
+    void Start() {
+        Cursor.visible = true;
+    }
 
     // Load Scene: Cambia el juego de escena
 
