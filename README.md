@@ -5,7 +5,7 @@ Projects made for the Unity Development class in Area 51 Training Center in Peru
 ## Projects in this repository:
 
 ### CSHangman
-A console hangman game made in Visual Studio and C#. Module 1.
+A console hangman game made in Visual Studio and C#.
 
 
 
@@ -20,4 +20,4 @@ A topdown 2D shooter with pixelart tiles from [Jerom on opengameart.org](https:/
 
 
 ### Unity Project 3D
-TBD
+A 3D platformer with a player model from [Supercyan on the Unity Asset Store](https://assetstore.unity.com/packages/3d/characters/humanoids/character-pack-free-sample-79870).
