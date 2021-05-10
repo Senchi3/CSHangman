@@ -27,7 +27,7 @@ public class PlayerAttributes : MonoBehaviour {
             DataManagement.WriteDataToFile(SceneControl.persistentPlayerData);
             FindObjectOfType<CheckpointControl>().SetCurrentActive(checkpoint);
         } else if (other.CompareTag("End Point")) {
-            int xd = 0;
+            Debug.Log("End Point");
         }
     }
 }

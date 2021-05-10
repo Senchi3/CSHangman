@@ -7,7 +7,7 @@ public class ControlledMovement : MovScript {
     public float gravity;
     public CharacterController characterController;
     public PlayerAttributes playerAttributes;
-    public CamScript camera;
+    public CamScript scriptCamera;
     Animator playerAnimator;
     float verticalSpeed;
     public float jumpForce = 10;
@@ -80,9 +80,9 @@ public class ControlledMovement : MovScript {
         characterController.Move(movement);
         transform.Rotate(horizontalRotation * angularSpeed * Time.deltaTime);
 
-        //TODO: Mouse camera rotation
-        camera.yPosition += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseMovementSpeed;
-        camera.yPosition = Mathf.Clamp(camera.yPosition, mouseMovementMin, mouseMovementMax);
+        //TODO: Mouse scriptCamera rotation
+        scriptCamera.yPosition += Input.GetAxis("Mouse Y") * Time.deltaTime * mouseMovementSpeed;
+        scriptCamera.yPosition = Mathf.Clamp(scriptCamera.yPosition, mouseMovementMin, mouseMovementMax);
     }
 
     void OnCollisionStay(Collision collision) {
